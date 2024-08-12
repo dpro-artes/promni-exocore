@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualização 3D</title>
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="title" id="modelName">
+        <!-- Título vazio para ser preenchido dinamicamente -->
+    </div>
+    <!-- Botões para controlar a visualização do modelo -->
+    <div class="controls">
+        <button onclick="setView('0deg 75deg 100%')">Frente</button>
+        <button onclick="setView('90deg 75deg 100%')">Lado Direito</button>
+        <button onclick="setView('180deg 75deg 100%')">Trás</button>
+        <button onclick="setView('270deg 75deg 100%')">Lado Esquerdo</button>
+        <button onclick="setView('0deg 0deg 100%')">Cima</button>
+        <button onclick="setView('0deg 180deg 100%')">Baixo</button>
+    </div>
+
+    <model-viewer 
+        id="viewer"
+        src="ExoCore-3D.glb" 
+        alt="Modelo 3D"
+        camera-controls
+        autoplay
+        ar>
+    </model-viewer>
+
+    <script>
+        function setView(angle) {
+            const viewer = document.getElementById('viewer');
+            viewer.cameraOrbit = angle;
+        }
+
+        // Obtém o nome do arquivo .glb e atualiza o título
+        window.onload = function() {
+            const modelName = document.getElementById('modelName');
+            const modelSrc = document.getElementById('viewer').getAttribute('src');
+            const modelNameText = modelSrc.split('/').pop().split('.')[0];
+            modelName.innerText = modelNameText;
+        };
+    </script>
+</body>
+</html>
